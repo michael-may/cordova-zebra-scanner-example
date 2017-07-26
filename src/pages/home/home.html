@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="scannerStatus | async; let status;">
+    <div *ngIf="status == 'connected'">
+      <h2>Scanner Connected!</h2>
+      <h3>Scan Results:</h3>
+      <ul *ngIf="codes.length">
+        <li *ngFor="let code of codes">
+          <span><strong>Code Type:</strong>{{code.barcodeType}}</span>
+          <br>
+          <span><strong>Code Data:</strong>{{code.barcodeData}}</span>
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="status == 'disconnected'">
+      <h2>Scanner disconnected</h2>
+    </div>
+    <div *ngIf="status == 'pairingRequired'">
+      <h2>Please pair the barcode scanner</h2>
+      <img [src]="pairingBarcode">
+    </div>
+  </div>
+</ion-content>
